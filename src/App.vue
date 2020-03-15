@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="heading">
-      <h1>Giphy Search</h1>
+      <div class="title">Giphy Search</div>
       <input type="text" v-model="searchTerm" />
       <div class="btn-container">
         <button class="btn-search" @click="getGifs()">Search</button>
@@ -71,27 +71,39 @@ export default {
   place-items: center;
   margin: 10px 30px;
 }
+.title {
+  font-size: 60px;
+  margin: 30px 0;
+}
 input {
-  padding: 10px;
+  padding: 10px 10px 10px 20px;
   margin-bottom: 20px;
-  font-size: 22px;
+  font-size: 28px;
   border: 1px solid lightblue;
   border-radius: 5px;
   outline: none;
   color: darkcyan;
-  background-color: blue;
+}
+input::selection {
+  background-color: darkmagenta;
+  color: white;
+}
+hr {
+  background: lightgray;
+  opacity: 0.3;
 }
 .btn-search {
   cursor: pointer;
-  padding: 5px 20px;
+  padding: 10px 30px;
   display: block;
   margin: 0 auto;
+  border: none;
+  font-size: 24px;
   border: 1px solid darkcyan;
-  border-radius: 5px;
-  background-color: transparent;
-  font-size: 18px;
+  background: transparent;
 }
-.btn-search:hover {
+.btn-search:hover,
+.btn-search:active {
   background-color: lightcyan;
   font-weight: bold;
 }
