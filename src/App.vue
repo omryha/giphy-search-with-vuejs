@@ -2,7 +2,7 @@
   <div id="app">
     <h1>Giphy Search</h1>
     <input type="text" v-model="searchTerm" />
-    <div class="container">
+    <div class="btn-container">
       <button class="btn-search" @click="getGifs()">Search</button>
     </div>
     <hr />
