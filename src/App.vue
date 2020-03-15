@@ -1,13 +1,18 @@
 <template>
   <div id="app">
-    <h1>Giphy Search</h1>
-    <input type="text" v-model="searchTerm" />
-    <div class="btn-container">
-      <button class="btn-search" @click="getGifs()">Search</button>
+    <div class="heading">
+      <h1>Giphy Search</h1>
+      <input type="text" v-model="searchTerm" />
+      <div class="btn-container">
+        <button class="btn-search" @click="getGifs()">Search</button>
+      </div>
     </div>
+
     <hr />
     <div class="gif-container">
       <img v-for="gif in gifs" :src="gif" :key="gif.id" />
+      <!--     <masonry :col="10">
+      </masonry>-->
     </div>
   </div>
 </template>
@@ -23,9 +28,9 @@ export default {
   },
   methods: {
     getGifs() {
-      let apiKey = "dc6zaTOxFJmzC";
+      let apiKey = "onYkOD8hKuuHkmqEvyINdV1PKXQMjaSk";
       let searchEndPoint = "https://api.giphy.com/v1/gifs/search?";
-      let limit = 10;
+      let limit = 25;
       let url = `${searchEndPoint}&api_key=${apiKey}&q=${this.searchTerm}&limit=${limit}`;
 
       fetch(url)
@@ -49,14 +54,22 @@ export default {
 </script>
 
 <style>
+* {
+  font-family: "Kreon", serif;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-  font-family: "Coda";
+}
+.heading {
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  place-items: center;
+  margin: 10px 30px;
 }
 input {
   padding: 10px;
@@ -75,17 +88,25 @@ input {
   border: 1px solid darkcyan;
   border-radius: 5px;
   background-color: transparent;
+  font-size: 18px;
 }
 .btn-search:hover {
   background-color: lightcyan;
+  font-weight: bold;
+}
+hr {
+  margin: 20px 0;
 }
 .gif-container {
-  margin-top: 30px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  flex-flow: row wrap;
+  place-content: center;
 }
 img {
-  margin: 10px 5px;
+  width: 20em;
+  height: 15em;
+  margin: 5px;
+  box-shadow: 1px 1px 10px 1px black;
 }
 </style>
