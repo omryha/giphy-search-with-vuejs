@@ -79,6 +79,7 @@ input {
   border-radius: 5px;
   outline: none;
   color: darkcyan;
+  background-color: blue;
 }
 .btn-search {
   cursor: pointer;
