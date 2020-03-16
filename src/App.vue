@@ -80,7 +80,7 @@ export default {
 .actions {
   display: flex;
   flex-direction: column;
-  padding-bottom: 30px;
+  padding: 0 30px 30px;
 }
 select {
   height: 50px;
