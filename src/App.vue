@@ -2,7 +2,14 @@
   <div id="app">
     <div class="heading">
       <div class="title">Giphy Search</div>
-      <input type="search" v-on:keyup.enter="getGifs()" v-model="searchTerm" />
+      <div class="actions">
+        <input type="search" v-on:keyup.enter="getGifs()" v-model="searchTerm" />
+        <select v-model="lang">
+          <option value="en">English</option>
+          <option value="hi">Hebrew</option>
+          <option value="ar">Arabic</option>
+        </select>
+      </div>
       <div class="btn-container">
         <button class="btn-search" @click="getGifs()">Search</button>
       </div>
@@ -10,9 +17,7 @@
 
     <hr />
     <div class="gif-container">
-      <img v-for="gif in gifs" :src="gif" :key="gif.id" />
-      <!--     <masonry :col="10">
-      </masonry>-->
+      <img v-for="gif in gifs" :src="gif" :key="gif.id" loading="lazy" />
     </div>
   </div>
 </template>
@@ -23,6 +28,7 @@ export default {
   data() {
     return {
       searchTerm: "",
+      lang: "",
       gifs: []
     };
   },
@@ -30,8 +36,8 @@ export default {
     getGifs() {
       let apiKey = "onYkOD8hKuuHkmqEvyINdV1PKXQMjaSk";
       let searchEndPoint = "https://api.giphy.com/v1/gifs/search?";
-      let limit = 25;
-      let url = `${searchEndPoint}&api_key=${apiKey}&q=${this.searchTerm}&limit=${limit}`;
+      let limit = "";
+      let url = `${searchEndPoint}&api_key=${apiKey}&q=${this.searchTerm}&limit=${limit}&offset=0&rating=G&lang=${this.lang}`;
 
       fetch(url)
         .then(response => {
@@ -70,6 +76,18 @@ export default {
   place-content: center;
   place-items: center;
   margin: 10px 30px;
+}
+.actions {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 30px;
+}
+select {
+  height: 50px;
+  text-align: center;
+  font-size: 23px;
+  padding-left: 10px;
+  border: 1px solid lightsteelblue;
 }
 .title {
   font-size: 60px;
