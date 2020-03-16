@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <hr />
+    <hr v-if="gifs.length>0" />
     <div class="gif-container">
       <img v-for="gif in gifs" :src="gif" :key="gif.id" loading="lazy" />
     </div>
