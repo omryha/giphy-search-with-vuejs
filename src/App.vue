@@ -1,8 +1,9 @@
 <template>
   <div id="app">
+    <font-awesome-icon icon="user-secret" />
     <div class="heading">
       <div class="title">Giphy Search</div>
-      <input type="text" v-model="searchTerm" />
+      <input type="search" v-model="searchTerm" />
       <div class="btn-container">
         <button class="btn-search" @click="getGifs()">Search</button>
       </div>
