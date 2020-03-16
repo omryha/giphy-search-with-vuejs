@@ -87,6 +87,7 @@ select {
   text-align: center;
   font-size: 23px;
   padding-left: 10px;
+  border-radius: 5px;
   border: 1px solid lightsteelblue;
 }
 .title {
