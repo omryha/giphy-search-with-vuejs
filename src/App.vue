@@ -8,25 +8,31 @@
       <div class="actions">
         <input
           type="search"
-          placeholder="Search a GIF 🐾"
+          placeholder="Enter keyword 🐾"
           v-on:keyup.enter="getGifs()"
           v-model="searchTerm"
         />
-        <!--         <select v-model="lang">
-          <option disabled value>Select Language</option>
-          <option value="en">English</option>
-          <option value="hi">Hebrew</option>
-          <option value="ar">Arabic</option>
-        </select>-->
+        <label for="weirdness">Weirdness Level (for Stickers): {{this.weirdness}}</label>
+        <input
+          type="range"
+          id="weirdness"
+          placeholder="3"
+          min="0"
+          max="10"
+          step="1"
+          v-model="weirdness"
+        />
       </div>
       <div class="btn-container">
-        <button class="btn-search" @click="getGifs()">Search</button>
+        <button class="btn-search" @click="getGifs()">Search for GIFS</button>
+        <button class="btn-search translate" @click="translateToGif()">Find a Sticker 🆒</button>
       </div>
     </div>
 
     <hr v-if="gifs.length>0" />
     <div class="gif-container">
       <img v-for="gif in gifs" :src="gif" :key="gif.id" loading="lazy" />
+      <img v-if="translationGif" :src="translationGif" loading="lazy" />
     </div>
   </div>
 </template>
@@ -36,18 +42,20 @@ export default {
   title: "Giphy Search",
   data() {
     return {
+      apiKey: "onYkOD8hKuuHkmqEvyINdV1PKXQMjaSk",
       openingGif: "",
       searchTerm: "",
+      weirdness: 0,
       lang: "en",
-      gifs: []
+      gifs: [],
+      translationGif: ""
     };
   },
   methods: {
     getGifs() {
-      let apiKey = "onYkOD8hKuuHkmqEvyINdV1PKXQMjaSk";
       let searchEndPoint = "https://api.giphy.com/v1/gifs/search?";
       let limit = "";
-      let url = `${searchEndPoint}&api_key=${apiKey}&q=${this.searchTerm}&limit=${limit}&offset=0&rating=G&lang=${this.lang}`;
+      let url = `${searchEndPoint}&api_key=${this.apiKey}&q=${this.searchTerm}&limit=${limit}&offset=0&rating=G&lang=${this.lang}`;
 
       fetch(url)
         .then(response => {
@@ -58,6 +66,13 @@ export default {
         })
         .catch(error => console.log(error));
     },
+    buildGifs(json) {
+      this.gifs = json.data
+        .map(gif => gif.id)
+        .map(gifId => {
+          return `https://media.giphy.com/media/${gifId}/giphy.gif`;
+        });
+    },
     getOpeningGif() {
       let openingGifUrl =
         "https://api.giphy.com/v1/gifs/random?api_key=onYkOD8hKuuHkmqEvyINdV1PKXQMjaSk&tag=&rating=G";
@@ -67,20 +82,25 @@ export default {
           return response.json();
         })
         .then(json => {
-          this.buildOpeningGif(json);
+          this.openingGif = this.getSingleGif(json);
         })
         .catch(error => console.log(error));
     },
-    buildOpeningGif(json) {
-      console.log(json.data.id);
-      this.openingGif = `https://media.giphy.com/media/${json.data.id}/giphy.gif`;
+    translateToGif() {
+      let translationEndPoint = "https://api.giphy.com/v1/stickers/translate?";
+      let translationUrl = `${translationEndPoint}&api_key=${this.apiKey}&s=${this.searchTerm}&weirdness=${this.weirdness}`;
+
+      fetch(translationUrl)
+        .then(response => {
+          return response.json();
+        })
+        .then(json => {
+          this.translationGif = this.getSingleGif(json);
+        })
+        .catch(error => console.log(error));
     },
-    buildGifs(json) {
-      this.gifs = json.data
-        .map(gif => gif.id)
-        .map(gifId => {
-          return `https://media.giphy.com/media/${gifId}/giphy.gif`;
-        });
+    getSingleGif(json) {
+      return `https://media.giphy.com/media/${json.data.id}/giphy.gif`;
     }
   },
   beforeMount: function() {
@@ -110,7 +130,7 @@ export default {
 .actions {
   display: flex;
   flex-direction: column;
-  padding: 0 30px 30px;
+  padding: 0 30px 0px;
 }
 select {
   height: 50px;
@@ -139,6 +159,9 @@ input {
   outline: none;
   color: darkcyan;
 }
+input[type="range"] {
+  margin: 0;
+}
 input::selection {
   background-color: darkmagenta;
   color: white;
@@ -151,11 +174,16 @@ hr {
   cursor: pointer;
   padding: 10px 30px;
   display: block;
-  margin: 0 auto;
+  margin: 20px auto;
   border: none;
   font-size: 24px;
   border: 1px solid darkcyan;
   background: transparent;
+  width: 250px;
+}
+.translate {
+  border: 1px solid lightcoral;
+  font-size: 22px;
 }
 .btn-search:hover,
 .btn-search:active {
