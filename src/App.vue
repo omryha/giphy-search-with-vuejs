@@ -55,7 +55,7 @@ export default {
       let limit = "";
 
       if (trending) {
-        trendingEndPoint = "http://api.giphy.com/v1/gifs/trending?";
+        trendingEndPoint = "https://api.giphy.com/v1/gifs/trending?";
         url = `${trendingEndPoint}api_key=${this.apiKey}`;
         fetch(url)
           .then(response => {
