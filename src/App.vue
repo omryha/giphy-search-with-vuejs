@@ -16,18 +16,10 @@
           Weirdness Level (for a special GIF):
           <span>{{this.weirdness}}</span>
         </label>
-        <input
-          type="range"
-          id="weirdness"
-          placeholder="3"
-          min="0"
-          max="10"
-          step="1"
-          v-model="weirdness"
-        />
+        <input type="range" id="weirdness" min="0" max="10" step="1" v-model="weirdness" />
       </div>
       <div class="btn-container">
-        <button class="btn-search" @click="getGifs()">Search for GIFS</button>
+        <button class="btn-search" @click="getGifs()">Search for GIFS 🐱</button>
         <button class="btn-search translate" @click="translateToGif()">Special GIF ✨</button>
         <button class="btn-search trending" @click="getGifs(true)">Trending GIFS 🔥</button>
       </div>
