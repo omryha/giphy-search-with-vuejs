@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="heading">
-      <div class="title">Giphy Search</div>
+      <div class="title">GIF Search</div>
       <div class="openingGif-container">
         <img :src="openingGif" :key="openingGif.id" loading="lazy" />
       </div>
