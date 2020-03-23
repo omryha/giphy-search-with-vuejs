@@ -62,14 +62,18 @@ export default {
 
       this.translationGif = "";
 
-      fetch(url)
-        .then(response => {
-          return response.json();
-        })
-        .then(json => {
-          this.buildGifs(json);
-        })
-        .catch(error => console.log(error));
+      if (this.searchTerm) {
+        fetch(url)
+          .then(response => {
+            return response.json();
+          })
+          .then(json => {
+            this.buildGifs(json);
+          })
+          .catch(error => console.log(error));
+      } else {
+        alert("Can't search none");
+      }
     },
     buildGifs(json) {
       this.gifs = json.data
@@ -97,14 +101,18 @@ export default {
 
       this.gifs = [];
 
-      fetch(translationUrl)
-        .then(response => {
-          return response.json();
-        })
-        .then(json => {
-          this.translationGif = this.getSingleGif(json);
-        })
-        .catch(error => console.log(error));
+      if (this.searchTerm) {
+        fetch(translationUrl)
+          .then(response => {
+            return response.json();
+          })
+          .then(json => {
+            this.translationGif = this.getSingleGif(json);
+          })
+          .catch(error => console.log(error));
+      } else {
+        alert("Can't search none");
+      }
     },
     getSingleGif(json) {
       return `https://media.giphy.com/media/${json.data.id}/giphy.gif`;
