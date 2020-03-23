@@ -29,6 +29,7 @@
       <div class="btn-container">
         <button class="btn-search" @click="getGifs()">Search for GIFS</button>
         <button class="btn-search translate" @click="translateToGif()">Special GIF ✨</button>
+        <button class="btn-search trending" @click="getGifs(true)">Trending GIFS 🔥</button>
       </div>
     </div>
 
@@ -55,14 +56,15 @@ export default {
     };
   },
   methods: {
-    getGifs() {
+    getGifs(trending = false) {
       let searchEndPoint = "https://api.giphy.com/v1/gifs/search?";
+      let url = "";
+      let trendingEndPoint = "";
       let limit = "";
-      let url = `${searchEndPoint}&api_key=${this.apiKey}&q=${this.searchTerm}&limit=${limit}&offset=0&rating=G&lang=${this.lang}`;
 
-      this.translationGif = "";
-
-      if (this.searchTerm) {
+      if (trending) {
+        trendingEndPoint = "http://api.giphy.com/v1/gifs/trending?";
+        url = `${trendingEndPoint}api_key=${this.apiKey}`;
         fetch(url)
           .then(response => {
             return response.json();
@@ -71,8 +73,25 @@ export default {
             this.buildGifs(json);
           })
           .catch(error => console.log(error));
-      } else {
-        alert("Can't search none");
+      }
+
+      this.translationGif = "";
+
+      if (!trending) {
+        url = `${searchEndPoint}&api_key=${this.apiKey}&q=${this.searchTerm}&limit=${limit}&offset=0&rating=G&lang=${this.lang}`;
+        if (this.searchTerm) {
+          this.gifs = [];
+          fetch(url)
+            .then(response => {
+              return response.json();
+            })
+            .then(json => {
+              this.buildGifs(json);
+            })
+            .catch(error => console.log(error));
+        } else {
+          alert("Can't search none");
+        }
       }
     },
     buildGifs(json) {
