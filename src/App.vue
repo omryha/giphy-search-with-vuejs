@@ -206,7 +206,7 @@ hr {
   display: block;
   margin: 20px auto;
   border: none;
-  font-size: 24px;
+  font-size: 22px;
   border: 1px solid darkcyan;
   background: transparent;
   width: 250px;
