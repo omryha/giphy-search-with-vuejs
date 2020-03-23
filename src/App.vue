@@ -12,7 +12,10 @@
           v-on:keyup.enter="getGifs()"
           v-model="searchTerm"
         />
-        <label for="weirdness">Weirdness Level (for a special GIF): {{this.weirdness}}</label>
+        <label for="weirdness">
+          Weirdness Level (for a special GIF):
+          <span>{{this.weirdness}}</span>
+        </label>
         <input
           type="range"
           id="weirdness"
@@ -212,5 +215,8 @@ img {
   height: 15em;
   margin: 5px;
   box-shadow: 1px 1px 10px 1px black;
+}
+label > span {
+  font-weight: bold;
 }
 </style>
