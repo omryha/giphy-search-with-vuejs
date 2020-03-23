@@ -12,7 +12,7 @@
           v-on:keyup.enter="getGifs()"
           v-model="searchTerm"
         />
-        <label for="weirdness">Weirdness Level (for Stickers): {{this.weirdness}}</label>
+        <label for="weirdness">Weirdness Level (for a special GIF): {{this.weirdness}}</label>
         <input
           type="range"
           id="weirdness"
@@ -25,7 +25,7 @@
       </div>
       <div class="btn-container">
         <button class="btn-search" @click="getGifs()">Search for GIFS</button>
-        <button class="btn-search translate" @click="translateToGif()">Find a Sticker 🆒</button>
+        <button class="btn-search translate" @click="translateToGif()">Special GIF ✨</button>
       </div>
     </div>
 
