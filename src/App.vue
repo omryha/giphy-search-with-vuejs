@@ -57,6 +57,8 @@ export default {
       let limit = "";
       let url = `${searchEndPoint}&api_key=${this.apiKey}&q=${this.searchTerm}&limit=${limit}&offset=0&rating=G&lang=${this.lang}`;
 
+      this.translationGif = "";
+
       fetch(url)
         .then(response => {
           return response.json();
@@ -89,6 +91,8 @@ export default {
     translateToGif() {
       let translationEndPoint = "https://api.giphy.com/v1/stickers/translate?";
       let translationUrl = `${translationEndPoint}&api_key=${this.apiKey}&s=${this.searchTerm}&weirdness=${this.weirdness}`;
+
+      this.gifs = [];
 
       fetch(translationUrl)
         .then(response => {
