@@ -117,6 +117,10 @@ export default {
 * {
   font-family: "Kreon", serif;
 }
+::selection {
+  background-color: darkmagenta;
+  color: white;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
